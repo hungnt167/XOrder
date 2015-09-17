@@ -1,0 +1,91 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    var messagePopupClosed = false;
+    function openSelectStorePopup() {
+        var height = $('html-body').getHeight();
+        $('select-store-popup-window-mask').setStyle({'height': height + 'px'});
+        toggleSelectsUnderBlock($('select-store-popup-window-mask'), false);
+        Element.show('select-store-popup-window-mask');
+        $('select-store-popup-window').addClassName('show');
+    }
+
+    function closeSelectStorePopup() {
+        toggleSelectsUnderBlock($('select-store-popup-window-mask'), true);
+        Element.hide('select-store-popup-window-mask');
+        $('select-store-popup-window').removeClassName('show');
+        messagePopupClosed = true;
+    }
+
+    Event.observe(window, 'load', openSelectStorePopup);
+    Event.observe(window, 'keyup', function (evt) {
+        if (messagePopupClosed) return;
+        var code;
+        if (evt.keyCode) code = evt.keyCode;
+        else if (evt.which) code = evt.which;
+        if (code == Event.KEY_ESC) {
+            closeSelectStorePopup();
+        }
+    });
+    //]]>
+</script>
+<div id="select-store-popup-window-mask" style="display:none;"></div>
+<div id="select-store-popup-window" class="message-popup">
+    <div class="message-popup-head">
+        <h2><?php echo $this->__("Please Select a Store") ?></h2>
+    </div>
+    <div class="message-popup-content">
+        <div class="message">
+            <?php echo $this->getHintHtml() ?>
+                <?php foreach ($this->getWebsiteCollection() as $_website): ?>
+                    <?php $showWebsite=false; ?>
+                    <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
+                        <?php $showGroup=false; ?>
+            <div class="modal-body body-store">
+                        <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
+                            <?php if ($showWebsite == false): ?>
+                                <?php $showWebsite = true; ?>
+                                <h3><?php echo $this->escapeHtml($_website->getName()) ?></h3>
+                            <?php endif; ?>
+                            <?php if ($showGroup == false): ?>
+                                <?php $showGroup = true; ?>
+                                <h4 style="margin-left:12px;"><?php echo $this->escapeHtml($_group->getName()) ?></h4>
+                            <?php endif; ?>
+                            <button type="button" onclick="order.setStoreId('<?php echo $_store->getId() ?>')" class="btn-block btn btn-default store-selector-btn"
+                                    id="<?php echo $store['store_id'] ?>"><?php echo $this->escapeHtml($_store->getName()) ?></button>
+                        <?php endforeach; ?>
+            </div>
+                        <?php if ($showGroup): ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,58 @@
+<ul id="tabs-info" class="nav nav-tabs" data-tabs="tabs-info">
+    <li class="active"><a href="#payment" data-toggle="tab">Payment</a></li>
+    <li><a href="#shipping" data-toggle="tab">Shipping</a></li>
+    <li><a href="#discount" data-toggle="tab">Discount</a></li>
+</ul>
+<div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="payment">
+<!--        <br/>-->
+        <?php
+        $payments = Mage::helper('payment')->getPaymentMethodList();
+//        foreach ($payments as $payment):
+//            if (!is_null($payment)):
+//                ?>
+<!--                <div class="row">-->
+<!--                    <button type="button" class="btn btn-primary btn-block">--><?php //echo $payment ?><!--</button>-->
+<!--                </div>-->
+<!--                --><?php
+//            endif;
+//        endforeach;
+        echo $this->getChildHtml('billing_method');
+        ?>
+
+    </div>
+    <div class="tab-pane" id="shipping">
+        <?php
+        $shippingList = Mage::helper('xpos')->getAllShippingMethod();
+        foreach ($shippingList as $shipping):
+            if (!is_null($shipping)):
+                ?>
+                <div class="row">
+                    <button type="button" class="btn btn-primary btn-block"><?php echo $shipping['label'] ?></button>
+                </div>
+                <?php
+            endif;
+        endforeach;
+        ?>
+    </div>
+    <div class="tab-pane" id="discount">
+        <div class="row">
+            <form action="" method="post" class="form-inline" role="form">
+
+                <div class="form-group">
+                    <label class="" for="">Apply Coupon Code</label>
+                    <input type="email" class="form-control" name="" id="" placeholder="Input ...">
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    jQuery(document).ready(function ($j) {
+        $j('#tabs-info').tab();
+    });
+</script>

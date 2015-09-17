@@ -1,0 +1,13 @@
+<config>
+    <menu>
+        <sales>
+            <children>
+                <xorder>
+                    <title>X-Order</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/xOrder</action>
+                </xorder>
+            </children>
+        </sales>
+    </menu>
+</config>

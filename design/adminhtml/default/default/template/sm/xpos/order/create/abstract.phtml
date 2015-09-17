@@ -1,0 +1,76 @@
+<div class="modal fade" id="modal-customer-selector">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h2><?php echo $this->getHeaderText() ?></h2>
+
+                <p>Type Customer name:</p>
+
+                <div class="ui-widget search-customer-box">
+                    <input class="search-customer form-control">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<a class="btn btn-primary" data-toggle="modal" href="modal-id">Trigger modal</a>
+<div class="modal fade" id="modal-id">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				Modal body ...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+    function openMyPopup() {
+
+        var url = '<?php echo $this->getUrl('adminhtml/dashboard/index') ?>?';
+
+        if ($('browser_window')&&typeof(Windows) != 'undefined') {
+            Windows.focus('browser_window');
+            return;
+        }
+        var dialogWindow = Dialog.info(null, {
+            closable:true,
+            resizable:false,
+            draggable:true,
+            className:'magento',
+            windowClassName:'popup-window',
+            title:'Test popup Dialog',
+            top:50,
+            width:300,
+            height:150,
+            zIndex:1000,
+            recenterAuto:false,
+            hideEffect:Element.hide,
+            showEffect:Element.show,
+            id:'browser_window',
+            url:url,
+            onClose:function (param, el) {
+                alert('onClose');
+            }
+        });
+    }
+
+    function closePopup() {
+        Windows.close('browser_window');
+    }
+
+</script>
+<!--<button class="aaa" onclick="openMyPopup()">ssas</button>-->

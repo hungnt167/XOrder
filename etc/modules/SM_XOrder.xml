@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <SM_XOrder>
+            <active>true</active>
+            <codePool>local</codePool>
+        </SM_XOrder>
+    </modules>
+</config>
